@@ -2,21 +2,18 @@ package com.klebercoding.jpa.models;
 
 import jakarta.persistence.*;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Data
 @Entity
-public class Course
+public class Course extends BaseEntity
 {
-	@Id
-	@GeneratedValue
-	private Integer id;
+
 	private String title;
 	private String description;
 	@ManyToMany

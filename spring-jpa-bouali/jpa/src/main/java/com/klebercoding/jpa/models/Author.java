@@ -3,21 +3,17 @@ package com.klebercoding.jpa.models;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Entity
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Author
+@SuperBuilder
+@Entity
+public class Author extends BaseEntity
 {
-	@Id
-	@GeneratedValue
-	private Integer id;
 	@Column(
 		name = "f_name",
 		length = 35
