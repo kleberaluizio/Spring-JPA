@@ -2,8 +2,10 @@ package com.klebercoding.jpa;
 
 import com.klebercoding.jpa.models.Author;
 import com.klebercoding.jpa.models.Course;
+import com.klebercoding.jpa.models.Video;
 import com.klebercoding.jpa.repositories.AuthorRepository;
 import com.klebercoding.jpa.repositories.CourseRepository;
+import com.klebercoding.jpa.repositories.VideoRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +21,19 @@ public class JpaApplication {
 		SpringApplication.run(JpaApplication.class, args);
 	}
 
+	@Bean
+	public CommandLineRunner commandLineRunner (VideoRepository repository){
+		return args -> {
+			var video = Video.builder()
+				.name("Learning Spring JPA")
+				.length(5)
+				.url("https://www.youtube.com/watch?v=mcl_nibV39s&ab_channel=BoualiAli")
+				.build();
+
+			repository.save(video);
+
+		};
+	}
 //	@Bean
 //	public CommandLineRunner commandLineRunner (AuthorRepository authorRepository){
 //		return args -> {

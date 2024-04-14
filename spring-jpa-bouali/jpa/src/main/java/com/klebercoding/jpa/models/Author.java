@@ -19,13 +19,16 @@ public class Author extends BaseEntity
 		length = 35
 	)
 	private String firstName;
+
 	private String lastName;
 	@Column(
 		unique = true,
 		nullable = false
 	)
 	private String email;
+
 	private int age;
+
 	@ManyToMany(mappedBy = "authors")
 	private List<Course> courses;
 }
