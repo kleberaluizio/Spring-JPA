@@ -1,14 +1,9 @@
 package com.klebercoding.jpa;
 
-import com.klebercoding.jpa.models.Author;
-import com.klebercoding.jpa.models.Course;
+
+import com.klebercoding.jpa.models.Text;
 import com.klebercoding.jpa.models.Video;
-import com.klebercoding.jpa.repositories.AuthorRepository;
-import com.klebercoding.jpa.repositories.CourseRepository;
-import com.klebercoding.jpa.repositories.VideoRepository;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.klebercoding.jpa.repositories.TextRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,18 +17,35 @@ public class JpaApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner (VideoRepository repository){
+	public CommandLineRunner commandLineRunner (TextRepository repository){
 		return args -> {
-			var video = Video.builder()
-				.name("Learning Spring JPA")
-				.length(5)
-				.url("https://www.youtube.com/watch?v=mcl_nibV39s&ab_channel=BoualiAli")
-				.build();
-
-			repository.save(video);
-
+			var existingText = repository.findById(52);
+			if(!existingText.isPresent())
+			{
+				var text = Text.builder().name("Estudo sobre mamiferos")
+					.content("Série de artigos sobre o tópico").build();
+				repository.save(text);
+			} else {
+				existingText.get().setSize(12);
+				existingText.get().setContent("Novo conteúdo");
+				existingText.get().setUrl("empty");
+				repository.save(existingText.get());
+			}
 		};
 	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner (VideoRepository repository){
+//		return args -> {
+//			var video = Video.builder()
+//				.name("Learning Spring JPA")
+//				.length(5)
+//				.url("https://www.youtube.com/watch?v=mcl_nibV39s&ab_channel=BoualiAli")
+//				.build();
+//
+//			repository.save(video);
+//
+//		};
+//	}
 //	@Bean
 //	public CommandLineRunner commandLineRunner (AuthorRepository authorRepository){
 //		return args -> {
